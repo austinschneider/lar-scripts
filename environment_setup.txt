@@ -45,7 +45,7 @@ pip install --prefix=$PREFIX sphinx_rtd_theme
 git clone https://github.com/FNALssi/cetmodules.git --branch 2.16.02
 cd $GOLEMSOURCEPATH/cetmodules
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
-mkdir build
+mkdir build && cd build
 cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
 make -j4 && make install
 
@@ -54,7 +54,7 @@ make -j4 && make install
 git clone  http://cdcvs.fnal.gov/projects/cetlib_except --branch refs/tags/v1_07_00
 cd $GOLEMSOURCEPATH/cetlib_except
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
-mkdir build
+mkdir build && cd build
 cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
 make -j4 && make install
 
@@ -65,7 +65,7 @@ git clone  http://cdcvs.fnal.gov/projects/cetlib
 # Approximately on refs/tags/v3_13_00
 cd $GOLEMSOURCEPATH/cetlib
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
-mkdir build
+mkdir build && cd build
 cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
 make -j4 && make install
 
@@ -75,7 +75,7 @@ git clone http://cdcvs.fnal.gov/projects/fhiclcpp
 # Approximately on refs/tags/v4_14_00
 cd $GOLEMSOURCEPATH/fhiclcpp
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
-mkdir build
+mkdir build && cd build
 cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
 make -j4 && make install
 
@@ -85,16 +85,38 @@ git clone http://cdcvs.fnal.gov/projects/messagefacility
 # Approximately on refs/tags/v2_08_00
 cd $GOLEMSOURCEPATH/messagefacility
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
-mkdir build
+mkdir build && cd build
 cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
 make -j4 && make install
 
 
 # cppunit
 git clone git://anongit.freedesktop.org/git/libreoffice/cppunit/
-# Approximately on refs/tags/cppunit-1.15.1
+# Approximately on refs/tags/cppunit-1.15.1l
 cd $GOLEMSOURCEPATH/cppunit
 ./autogen.sh
 ./configure  --prefix=$PREFIX
 make -j4
 make install
+
+
+# CLHEP
+git clone https://gitlab.cern.ch/CLHEP/CLHEP.git --branch CLHEP_2_4_4_1
+cd $GOLEMSOURCEPATH/CLHEP
+mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+# range
+git clone https://github.com/ericniebler/range-v3.git --branch 0.11.0
+cd $GOLEMSOURCEPATH/range-v3
+mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# canvas
+git clone http://cdcvs.fnal.gov/projects/canvas --branch refs/tags/v3_12_00
+cd $GOLEMSOURCEPATH/canvas
+mkdir build && cd build
+
