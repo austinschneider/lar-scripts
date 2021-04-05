@@ -1,0 +1,100 @@
+## How to setup a software environment for larsim
+
+
+# oneTBB
+git clone https://github.com/oneapi-src/oneTBB.git --branch v2021.2.0
+cd $GOLEMSOURCEPATH/oneTBB
+mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# hep_concurrency
+git clone  http://cdcvs.fnal.gov/projects/hep_concurrency --branch refs/tags/v1_07_00
+cd $GOLEMSOURCEPATH/hep_concurrency
+# CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
+mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# sqlite
+git clone https://github.com/sqlite/sqlite.git --branch version-3.35.4
+cd $GOLEMSOURCEPATH/sqlite
+./configure  --prefix=$PREFIX
+make -j4 && make install
+
+
+# Catch2
+git clone https://github.com/catchorg/Catch2.git --branch v2.13.4
+cd $GOLEMSOURCEPATH/Catch2
+mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# sphinx
+git clone https://github.com/sphinx-doc/sphinx.git --branch v3.5.2
+cd $GOLEMSOURCEPATH/sphinx
+pip install . --prefix=$PREFIX
+pip install --prefix=$PREFIX sphinxcontrib-moderncmakedomain
+pip install --prefix=$PREFIX sphinx_rtd_theme
+
+
+# cetmodules
+git clone https://github.com/FNALssi/cetmodules.git --branch 2.16.02
+cd $GOLEMSOURCEPATH/cetmodules
+# CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
+mkdir build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# cetlib_except
+git clone  http://cdcvs.fnal.gov/projects/cetlib_except --branch refs/tags/v1_07_00
+cd $GOLEMSOURCEPATH/cetlib_except
+# CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
+mkdir build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+
+# cetlib
+git clone  http://cdcvs.fnal.gov/projects/cetlib
+# Approximately on refs/tags/v3_13_00
+cd $GOLEMSOURCEPATH/cetlib
+# CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
+mkdir build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# fhiclcpp
+git clone http://cdcvs.fnal.gov/projects/fhiclcpp
+# Approximately on refs/tags/v4_14_00
+cd $GOLEMSOURCEPATH/fhiclcpp
+# CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
+mkdir build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# messagefacility
+git clone http://cdcvs.fnal.gov/projects/messagefacility
+# Approximately on refs/tags/v2_08_00
+cd $GOLEMSOURCEPATH/messagefacility
+# CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
+mkdir build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# cppunit
+git clone git://anongit.freedesktop.org/git/libreoffice/cppunit/
+# Approximately on refs/tags/cppunit-1.15.1
+cd $GOLEMSOURCEPATH/cppunit
+./autogen.sh
+./configure  --prefix=$PREFIX
+make -j4
+make install
