@@ -1,7 +1,38 @@
 ## How to setup a software environment for larsim
 
+export CXX=g++
+export CC=gcc
+export GOLEMSPACE=$HOME/programs/MINIBOONE
+export GOLEMBUILDPATH=$GOLEMSPACE/local
+export GOLEMSOURCEPATH=$GOLEMSPACE/sources
+export PREFIX=$GOLEMBUILDPATH
+export PATH=$GOLEMBUILDPATH/bin:$PATH
+export LD_LIBRARY_PATH=$GOLEMBUILDPATH/lib/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$GOLEMBUILDPATH/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$GOLEMBUILDPATH/lib64/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
+export C_INCLUDE_PATH=$GOLEMBUILDPATH/include/:$C_INCLUDE_PATH
+export C_INCLUDE_PATH=/usr/include/:$C_INCLUDE_PATH
+export C_INCLUDE_PATH=/usr/include/c++/9/:$C_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=$GOLEMBUILDPATH/include/:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=/usr/include/:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=/usr/include/:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=/usr/include/c++/9/:$CPLUS_INCLUDE_PATH
+export CXX_INCLUDE_PATH=$GOLEMBUILDPATH/include/:$CPLUS_INCLUDE_PATH
+export CXX_INCLUDE_PATH=/usr/include/:$CXX_INCLUDE_PATH
+export CXX_INCLUDE_PATH=/usr/include/c++/9/:$CXX_INCLUDE_PATH
+export PKG_CONFIG_PATH=$GOLEMBUILDPATH/lib/pkgconfig:$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH=$GOLEMBUILDPATH/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
+export PYTHONPATH=$GOLEMBUILDPATH/lib/python3.8/site-packages:$PYTHONPATH
+export PYTHONPATH=$GOLEMBUILDPATH/lib/python3/dist-packages:$PYTHONPATH
+export PYTHONPATH=$GOLEMBUILDPATH/lib:$PYTHONPATH
+export PYTHONPATH=$GOLEMSPACE/sources/nuSQuIDS/resources/python/bindings:$PYTHONPATH
+#export PYTHONPATH=$GOLEMBUILDPATH/lib64:$PYTHONPATH
+# hack
+export HDF5_DISABLE_VERSION_CHECK=1
 
 # oneTBB
+cd $GOLEMSOURCEPATH
 git clone https://github.com/oneapi-src/oneTBB.git --branch v2021.2.0
 cd $GOLEMSOURCEPATH/oneTBB
 mkdir build && cd build
@@ -10,7 +41,8 @@ make -j4 && make install
 
 
 # hep_concurrency
-git clone  http://cdcvs.fnal.gov/projects/hep_concurrency --branch refs/tags/v1_07_00
+cd $GOLEMSOURCEPATH
+git clone  http://cdcvs.fnal.gov/projects/hep_concurrency --branch v1_07_00
 cd $GOLEMSOURCEPATH/hep_concurrency
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
 mkdir build && cd build
@@ -19,6 +51,7 @@ make -j4 && make install
 
 
 # sqlite
+cd $GOLEMSOURCEPATH
 git clone https://github.com/sqlite/sqlite.git --branch version-3.35.4
 cd $GOLEMSOURCEPATH/sqlite
 ./configure  --prefix=$PREFIX
@@ -26,6 +59,7 @@ make -j4 && make install
 
 
 # Catch2
+cd $GOLEMSOURCEPATH
 git clone https://github.com/catchorg/Catch2.git --branch v2.13.4
 cd $GOLEMSOURCEPATH/Catch2
 mkdir build && cd build
@@ -34,6 +68,7 @@ make -j4 && make install
 
 
 # sphinx
+cd $GOLEMSOURCEPATH
 git clone https://github.com/sphinx-doc/sphinx.git --branch v3.5.2
 cd $GOLEMSOURCEPATH/sphinx
 pip install . --prefix=$PREFIX
@@ -42,6 +77,7 @@ pip install --prefix=$PREFIX sphinx_rtd_theme
 
 
 # cetmodules
+cd $GOLEMSOURCEPATH
 git clone https://github.com/FNALssi/cetmodules.git --branch 2.16.02
 cd $GOLEMSOURCEPATH/cetmodules
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
@@ -51,7 +87,8 @@ make -j4 && make install
 
 
 # cetlib_except
-git clone  http://cdcvs.fnal.gov/projects/cetlib_except --branch refs/tags/v1_07_00
+cd $GOLEMSOURCEPATH
+git clone  http://cdcvs.fnal.gov/projects/cetlib_except --branch v1_07_00
 cd $GOLEMSOURCEPATH/cetlib_except
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
 mkdir build && cd build
@@ -59,10 +96,9 @@ cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
 make -j4 && make install
 
 
-
 # cetlib
-git clone  http://cdcvs.fnal.gov/projects/cetlib
-# Approximately on refs/tags/v3_13_00
+cd $GOLEMSOURCEPATH
+git clone  http://cdcvs.fnal.gov/projects/cetlib --branch v3_13_00
 cd $GOLEMSOURCEPATH/cetlib
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
 mkdir build && cd build
@@ -71,8 +107,8 @@ make -j4 && make install
 
 
 # fhiclcpp
-git clone http://cdcvs.fnal.gov/projects/fhiclcpp
-# Approximately on refs/tags/v4_14_00
+cd $GOLEMSOURCEPATH
+git clone http://cdcvs.fnal.gov/projects/fhiclcpp -- branch v4_14_00
 cd $GOLEMSOURCEPATH/fhiclcpp
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
 mkdir build && cd build
@@ -81,8 +117,8 @@ make -j4 && make install
 
 
 # messagefacility
-git clone http://cdcvs.fnal.gov/projects/messagefacility
-# Approximately on refs/tags/v2_08_00
+cd $GOLEMSOURCEPATH
+git clone http://cdcvs.fnal.gov/projects/messagefacility --branch v2_08_00
 cd $GOLEMSOURCEPATH/messagefacility
 # CMakeLists.txt: “EXTRA_FLAGS -pedantic” --> “EXTRA_FLAGS -pedantic -std=c++17”
 mkdir build && cd build
@@ -91,8 +127,8 @@ make -j4 && make install
 
 
 # cppunit
-git clone git://anongit.freedesktop.org/git/libreoffice/cppunit/
-# Approximately on refs/tags/cppunit-1.15.1l
+cd $GOLEMSOURCEPATH
+git clone git://anongit.freedesktop.org/git/libreoffice/cppunit/ --branch cppunit-1.15.1
 cd $GOLEMSOURCEPATH/cppunit
 ./autogen.sh
 ./configure  --prefix=$PREFIX
@@ -101,13 +137,16 @@ make install
 
 
 # CLHEP
+cd $GOLEMSOURCEPATH
 git clone https://gitlab.cern.ch/CLHEP/CLHEP.git --branch CLHEP_2_4_4_1
 cd $GOLEMSOURCEPATH/CLHEP
 mkdir build && cd build
 cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
 make -j4 && make install
 
+
 # range
+cd $GOLEMSOURCEPATH
 git clone https://github.com/ericniebler/range-v3.git --branch 0.11.0
 cd $GOLEMSOURCEPATH/range-v3
 mkdir build && cd build
@@ -116,7 +155,63 @@ make -j4 && make install
 
 
 # canvas
+cd $GOLEMSOURCEPATH
 git clone http://cdcvs.fnal.gov/projects/canvas --branch refs/tags/v3_12_00
 cd $GOLEMSOURCEPATH/canvas
 mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
 
+
+# canvas_root_io
+cd $GOLEMSOURCEPATH
+git clone http://cdcvs.fnal.gov/projects/canvas_root_io --branch v1_09_00
+cd $GOLEMSOURCEPATH/canvas_root_io
+mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# dk2nudata
+cd $GOLEMSOURCEPATH
+svn checkout https://cdcvs.fnal.gov/subversion/dk2nu/trunk/dk2nu dk2nu
+cd $GOLEMSOURCEPATH/dk2nu
+mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# lhapdf
+cd $GOLEMSOURCEPATH
+wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.3.0.tar.gz
+tar -xzvf index.html?f=LHAPDF-6.3.0.tar.gz
+rm index.html?f=LHAPDF-6.3.0.tar.gz
+mv LHAPDF-6.3.0 lhapdf
+cd $GOLEMSOURCEPATH/lhapdf
+./configure  --prefix=$PREFIX
+
+
+# pythia6
+cd $GOLEMSOURCEPATH
+wget https://pythiasix.hepforge.org/downloads/?f=pythia-6.4.28.tgz
+mkdir pythia6
+cd pythia6
+tar -xzvf ../index.html?f=pythia-6.4.28.tgz
+rm ../index.html?f=pythia-6.4.28.tgz
+make lib
+
+
+# log4cpp
+cd $GOLEMSOURCEPATH
+git clone https://github.com/orocos-toolchain/log4cpp.git --branch v2.9.1
+cd $GOLEMSOURCEPATH/log4cpp
+mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=$PREFIX
+make -j4 && make install
+
+
+# genie
+## genie 3.0.6 can be compiled on DUNE machines with gcc (GCC) 7.3.0 using --std=c++1z
+cd $GOLEMSOURCEPATH
+git clone https://github.com/GENIE-MC/Generator.git --branch R-3_00_06
+GENIE=$GOLEMSOURCEPATH/Generator ./configure  --prefix=$PREFIX --with-pythia6-lib=$GOLEMSOURCEPATH/pythia6 --with-lhapdf5-lib=$GOLEMSOURCEPATH/lhapdf/src/.libs --with-lhapdf5-inc=$GOLEMSOURCEPATH/lhapdf/include --with-log4cpp-lib=$GOLEMBUILDPATH/lib
